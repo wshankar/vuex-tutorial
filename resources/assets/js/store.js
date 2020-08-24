@@ -10,6 +10,24 @@ export default {
         auth_error: null,
         customers:[]
     },
+    getters:{
+        isLoading(state){
+            return state.loading;
+        },
+        isLoggedin(state){
+            return state.isLoggedin;
+        },
+        currentUser(state){
+            return state.currentUser;
+        },
+        authError(state){
+            return state.auth_error;
+        },
+        customers(state){
+            return state.customers;
+        },
+    
+    },
     mutations:{
         login(state){
             state.loading = true;
@@ -31,28 +49,24 @@ export default {
             localStorage.removeItem('user');
             state.isLoggedin = false;
             state.currentUser = null;
-        }
-    },
-    getters:{
-        isLoading(state){
-            return state.loading;
         },
-        isLoggedin(state){
-            return state.isLoggedin;
-        },
-        currentUser(state){
-            return state.currentUser;
-        },
-        authError(state){
-            return state.auth_error;
-        },
-        customers(state){
-            return state.customers;
+        updateCustomers(state, payload){
+            state.customers = payload;
         }
     },
     actions:{
         login(context){
             context.commit('login')
+        },
+        getCustomers(context){
+            axios.get('/api/customers', {
+                headers:{
+                    Authorization: `Bearer ${context.state.currentUser.token}`
+                }
+            })
+            .then((response)=> {
+                context.commit('updateCustomers', response.data.customers);
+            })
         }
     }
 }

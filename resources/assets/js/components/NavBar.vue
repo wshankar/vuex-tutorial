@@ -1,16 +1,49 @@
 <template>
-   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal">Aung EMR</h5>
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="#">Customers</a>
-  </nav>
-  <a class="btn btn-outline-primary" href="#">Login</a>
-</div>
+   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Aung EMR</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto">
+          <template v-if="!currentUser">
+            <li class="nav-item active">
+              <router-link to="/login" class="nav-link btn btn-outline-primary">Login</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/register" class="nav-link btn btn-outline-primary">Register</router-link>
+            </li>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <router-link to="/customers" class="nav-link btn btn-outline-primary">Customers</router-link>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ currentUser.name }}</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" href="#" @click.prevent="logout">Logout</a>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </nav>
 </template>
 
 <script>
 export default {
-
+    methods:{
+        logout(){
+           this.$store.commit('logout')
+           this.$router.push('/login')
+        }
+    },
+    computed:{
+          currentUser(){
+               return this.$store.getters.currentUser
+          }
+    }
 }
 </script>
 

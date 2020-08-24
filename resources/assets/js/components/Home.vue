@@ -1,6 +1,5 @@
 <template>
-  
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-4">
             <div class="col-md-8">
                 <div class="card card-default">
                     <div class="card-header">Example Component</div>

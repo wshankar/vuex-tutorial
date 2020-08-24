@@ -17,6 +17,11 @@
                           <input type="submit" value="Login" class="btn-secondary">
                       </div>
                     </form>
+                    <div class="form-group row">
+                          <p class="error">
+                              {{authError}}
+                          </p>
+                      </div>
                 </div>
             </div>
         </div>
@@ -47,6 +52,11 @@ export default {
             .catch((error) => {
                 this.$store.commit('loginFailed', {error})
             })
+        }
+    },
+    computed:{
+        authError(){
+            return this.$store.getters.authError
         }
     }
 }
