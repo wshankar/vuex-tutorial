@@ -5,7 +5,6 @@ import CustomerList from './components/Customers/List'
 import NewCustomer from './components/Customers/New'
 import Customer from './components/Customers/View'
 
-
 export const routes = [
     {
         path:'/',

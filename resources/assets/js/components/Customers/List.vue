@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="btn-wrapper">
+            <router-link to="/customers/new" class="btn btn-primary btn-sm">New</router-link>
+        </div>
         <table class="table">
             <thead>
                 <th>Name</th>
@@ -31,6 +34,9 @@
 <script>
 export default {
     mounted(){
+        if (this.customers.length) {
+            return
+        }
         this.$store.dispatch('getCustomers')
     },
     computed:{
@@ -41,6 +47,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scopped>
+.btn-wrapper {
+    text-align: right;
+    margin-bottom: 20px;
+}
 </style>
